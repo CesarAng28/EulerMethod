@@ -4,6 +4,8 @@
 #define INDEX 0
 #define POSICION 1
 
+#define ARCHIVO "BONGEE.CSV"
+
 int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras)
 {
   int muestras_entero,index, chocado=0, muestra_choque, repetir;
@@ -11,12 +13,14 @@ int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras
   long int gramos;
 
   FILE * Archivo = NULL;
-
+  
+  
   muestras_entero = (int) muestras;
 
   double matriz_datos[muestras_entero][COLUMNAS];
 
-  Archivo = modelo_Nuevo_Archivo("BONGEE.CSV","w");
+  Archivo = modelo_Nuevo_Archivo(ARCHIVO,"w");
+ 
 
   delta_t = tiempo/muestras;
   gramos = masa*1000;
@@ -30,7 +34,7 @@ int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras
   {
     posicion_en_index = modelo_Euler_Method(delta_t,index,gramos,k_constante);
 
-    //printf("\n\nPosicion en muestra %d = %.3lf",index,posicion_en_index);
+    printf("\n\nPosicion en muestra %d = %.3lf",index,posicion_en_index);
 
     matriz_datos[index][INDEX] = index;
     matriz_datos[index][POSICION] = posicion_en_index;
@@ -45,6 +49,10 @@ int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras
   modelo_Imprime_Archivo(Archivo,COLUMNAS,matriz_datos,muestras);
 
   fclose(Archivo);
+
+
+  //Llamada a la funcion que genera el plot
+  modelo_Grafica(ARCHIVO);
 
   repetir = vista_Resultados(tiempo,muestras,muestra_choque*delta_t,chocado);
 

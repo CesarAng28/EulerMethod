@@ -2,7 +2,7 @@
 //  bongee_prediction.h
 //  
 //
-//  Creado por Rodrigo Garcia el 25 de septiembre del 2020.
+//  Creado por Rodrigo Garcia y Jesus Enrique Domìnguez el 25 de septiembre del 2020.
 //
 
 #ifndef bongee_prediction_h
@@ -165,34 +165,18 @@ EXTERN FILE * modelo_Nuevo_Archivo(char *nombre_archivo, char *modo);
 
 /*
  *
- * The function copy_test copies the data from a array_manager_static_memory structure using array_manager_copy
+ * La funcion modelo_Grafica genera un plot del archivo CSV previamente creado.
  *
  * @params
- *      memory_used (size_t):
-            Amount of memory that we need allocate.
+ *      nombre_archivo (* char):
+            Archivo el cual sera graficado por GNUplot
         
  * @returns
         void
 */
 
-//EXTERN void copy_test (size_t memory_used, array_manager_static_memory * memory);
+EXTERN void modelo_Grafica (char * nombre_archivo);
 
-/*
- *
- * The function array_manager_static_link joins two memory elements for them to be accessed sequentially
- *
- * @params
- *     memory1 (* array_manager_static_memory):
-            Amount of memory in bytes of the copied buffer
- *     memory2 (* array_manager_static_memory):
-            Memory address of the buffer
-
-
- * @returns
-        ____ defined by you
-*/
-
-//EXTERN ____ array_manager_static_link(array_manager_static_memory * memory1, array_manager_static_memory * memory2);
 
 
 #undef bongee_preditcion_IMPORT
