@@ -13,6 +13,6 @@
 /* Variables */
 typedef struct DATOS
 {
-  float tiempo,masa,k;
+  float delta,masa,k;
   int cantDelta;
 }DATOS;

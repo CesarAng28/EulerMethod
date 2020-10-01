@@ -10,6 +10,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#include"tipo.h"
+
 /* funciones.c -- Functions */
 
 /**
@@ -21,17 +23,20 @@
 */
 void menu(DATOS *datos)
 {
+  float x;
   do
   {
-    printf("=======================================================\n");
-    printf("=                         MENU                        =\n");
-    printf("=1) Desea introducir valores para las variables?      =\n");
-    printf("=2) Calcular grafica                                  =\n");
-    printf("=======================================================\n");
-    printf("Introduzca una opcion: ",x);
+    printf("====================================================\n");
+    printf("=                       MENU                       =\n");
+    printf("=1) Set values for Dt, Weight, K or cuantity       =\n");
+    printf("=2) Calculate Graphic                              =\n");
+    printf("=                                                  =\n");
+    printf("====================================================\n");
+    printf("Input an option: ");
+    scanf("%f",&x);
     if((x!=1)&&(x!=2))
     {
-      printf("Introduzca una opcion valida.\n");
+      printf("Thats not a valid value.\n");
     }
     if(x==2)
     {
@@ -41,26 +46,42 @@ void menu(DATOS *datos)
     {
       do
       {
-        printf("Introduzca el valor de la diferencia de tiempo (DeltaT):");
-        scanf("%f",datos.tiempo);
-      }while(datos.tiempo<=0);
+        printf("Insert value for Dt (s):");
+        scanf("%f",&datos->delta);
+        if(datos->delta<=0)
+        {
+          printf("Value out of range (>0-infinity)\n");
+        }
+      }while(datos->delta<=0);
       do
       {
-        printf("Introduzca el valor de la Masa (m):");
-        scanf("%f",datos.masa);
-      }while(datos.tiempo<=0);
+        printf("Introduce weight value (kg):");
+        scanf("%f",&datos->masa);
+        if(datos->masa<=0)
+        {
+          printf("Value out of range (>0-infinity)\n");
+        }
+      }while(datos->masa<=0);
       do
       {
-        printf("Introduzca el valor de la constante del bongee(k):");
-        scanf("%f",datos.k);
-      }while(datos.k<=0);
+        printf("Introduce value for k constant of the bongee(N/m^2):");
+        scanf("%f",&datos->k);
+        if(datos->k<=0)
+        {
+          printf("Value out of range (>0-infinity)\n");
+        }
+      }while(datos->k<=0);
       do
       {
-        printf("Introduzca la cantidad de valores a calcular para Delta:");
-        scanf("%d",datos.cantDelta);
-      }while(datos.cantDelta<=0);//es el valor del for, quiero 15 medidas, osea de x hasta x+15deltas
+        printf("Introduce how many dots are going to be calculated:");
+        scanf("%d",&datos->cantDelta);
+        if(datos->cantDelta<=0)
+        {
+          printf("Value out of range (>0-infinity)\n");
+        }
+      }while(datos->cantDelta<=0);//es el valor del for, quiero 15 medidas, osea de x hasta x+15deltas
     }
-  }
+  }while(x!=2);
 }
 
 /**
@@ -72,17 +93,17 @@ void menu(DATOS *datos)
 *   0 if cant create a file
 *   1 if file had been created corretly
 */
-int CreateFile(FILE *file)
+int CreateFile(FILE **file)
 {
-  file=fopen("grafica.txt","w");
-  if(file==Null)
+  *file=fopen("graphic.dat","w");
+  if(*file==NULL)
   {
     return 0;
   }
   else
   {
     return 1;
-  }
+  } 
 }
 
 /**
@@ -93,9 +114,13 @@ int CreateFile(FILE *file)
 *   array[][](float *)
 *   
 */
-void FillFile(FILE *file,float array[][])
+void FillFile(FILE *file,float array[][2],DATOS *datos)
 {
-  fprintf(file,"",array);
+  int i;
+  for(i=0;i<datos->cantDelta;i++)
+  {
+    fprintf(file,"%f, %f\n",array[i][0],array[i][1]);
+  }
 }
 
 /**
@@ -106,38 +131,24 @@ void FillFile(FILE *file,float array[][])
 *   array[][](float *)
 *
 */
-void DesarrolloEcuacion(DATOS *datos,float array[][])
+void DesarrolloEcuacion(DATOS *datos,float array[][2])
 {
-  float xinicial=10;
-  float valorx;
-  float x0=xinicial, x1= xinicial;
-  float x2; //nos dicen x(t), x(t+delta) y x(t+2delta)
-  float t=0; //vamos de cero y se le va sumando delta
+  float t,n;
   int i;
-  for (i=0; i<15; i++)
+  t=0;
+  for (i=0; i<datos->cantDelta; i++)
   {
-    x2= Calcular (x0,x1);//metemos x(t) y x(t+delta)
-    array[i][0]= t; //valor del tiempo
-    array[i][1]= x0; //posicion en ese tiempo
-    t= t+datos.tiempo;
-    x0=x1;
-    x1=x2
+    if(i==0)
+    {
+      array[i][1]=10;
+      array[i][0]= t; //time value
+      array[i+1][1]=10;
+    }
+    if(i>=1)
+    {
+      array[i+1][1]=0-(array[i-1][1])*((1)+(((datos->k)*(datos->delta)*(datos->delta))/datos->masa))+(0.2)*(array[i][1])*(datos->delta)+(datos->delta)*(datos->delta)*9.81;/*agregar 0.2*/
+    }
+    t=t+datos->delta;
+    array[i+1][0]= t; //time value
   }
-}
-
-/**
-*This function takes the variables and replace them in the main ecuation, solve it, and save the results in the array.
-*
-*@param
-*   x0(float *)
-*   x1(float *)
-*@return
-*   x2(float *)
-*
-*/
-float Calcular (float x0,float x1)
-{
-  float x2;
-  x2= x0+x1 //aqui va la formulota
-  return x2;
 }

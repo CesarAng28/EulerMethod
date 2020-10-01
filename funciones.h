@@ -5,12 +5,12 @@
 //  Created by Castro Bouquet Ildefonso on 27/09/2020.
 //  Created by Venegas Ramirez Giovanni Josue on 27/09/2020.
 //
-#ifndef files_h
-#define files_h
+#ifndef funciones_h
+#define funciones_h
 
 #include <stdio.h>
 
-#ifdef files_IMPORT
+#ifdef funciones_IMPORT
     #define EXTERN
 #else
     #define EXTERN extern
@@ -36,7 +36,7 @@ EXTERN void menu(DATOS *datos);
 *   0 if cant create a file
 *   1 if file had been created corretly
 */
-EXTERN int CreateFile(File *file);
+EXTERN int CreateFile(FILE **file);
 
 /**
 *This function takes the array and print the information from it to the file.
@@ -46,7 +46,7 @@ EXTERN int CreateFile(File *file);
 *   array[][](float *)
 *   
 */
-EXTERN void FillFile(FILE *file,float array[][]);
+EXTERN void FillFile(FILE *file,float array[][2],DATOS *datos);
 
 /**
 *This function takes the variables and replace them in the main ecuation, solve it, and save the results in the array.
@@ -56,21 +56,10 @@ EXTERN void FillFile(FILE *file,float array[][]);
 *   array[][](float *)
 *
 */
-EXTERN void DesarrolloEcuacion(DATOS *datos,float array[][]);
+EXTERN void DesarrolloEcuacion(DATOS *datos,float array[][2]);
 
-/**
-*This function takes the variables and replace them in the main ecuation, solve it, and save the results in the array.
-*
-*@param
-*   x0(float *)
-*   x1(float *)
-*@return
-*   x2(float *)
-*
-*/
-EXTERN float Calcular (x0,x1);
 
-#undef files_IMPORT
+#undef funciones_IMPORT
 #undef EXTERN
 
-#endif /* files_h */
+#endif /* funciones_h */
