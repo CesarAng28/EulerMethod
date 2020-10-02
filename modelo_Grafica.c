@@ -4,7 +4,7 @@
 
 void modelo_Grafica (char * nombre_archivo)
 {
-  char * commandsForGnuplot[] = {"set title \"Prediccion de bongee\"","plot 'BONGEE.CSV' u 1:2 t 'Trayectoria'"};
+  char * commandsForGnuplot[] = {"set title \"Prediccion de bongee\"","plot 'BONGEE.CSV' using 1:2 t 'Trayectoria' with lines"};
   FILE * gnuplotPipe = NULL;
 
   gnuplotPipe = popen("gnuplot -persistent","w");

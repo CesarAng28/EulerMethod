@@ -87,7 +87,7 @@ EXTERN int vista_Resultados(double tiempo, double muestras, double tiempo_choque
  * lo que se tenga que hacer ahora.
  *
  * @params
- *     masa (int):
+ *     masa (double):
             valor de la masa recibida del menu
  *     k_constante (int):
             valor de la constante k del resorte
@@ -101,7 +101,7 @@ EXTERN int vista_Resultados(double tiempo, double muestras, double tiempo_choque
 */
 
 
-EXTERN int controlador_Proceso(int masa, int k_constante, double tiempo, double muestras);
+EXTERN int controlador_Proceso(double masa, int k_constante, double tiempo, double muestras);
 
 
 /*
@@ -114,7 +114,7 @@ EXTERN int controlador_Proceso(int masa, int k_constante, double tiempo, double 
             variable del tiempo entre muestras dentro del periodo de tiempo dado por el usuario
  *     index (int):
             indice que calculara el metodo
- *     masa (int):
+ *     masa (double):
             valor de la masa de la persona proporcionado por el usuario
  *     k_resorte (int):
             constante k del resorte proporcionado por el usuario 
@@ -124,7 +124,7 @@ EXTERN int controlador_Proceso(int masa, int k_constante, double tiempo, double 
 */
 
 
-EXTERN double modelo_Euler_Method(double delta_t,int index, long int gramos, int k_resorte);
+EXTERN double modelo_Euler_Method(double delta_t,int index, double masa, int k_resorte);
 
 /*
  *

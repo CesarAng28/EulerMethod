@@ -2,8 +2,8 @@
 
 int vista_Menu(void)
 {
-  int masa, k_resorte, repetir;
-  double tiempo_a_calcular,muestras;
+  int k_resorte, repetir;
+  double tiempo_a_calcular,muestras,masa;
 
   system("clear");
 
@@ -16,7 +16,7 @@ int vista_Menu(void)
   system("clear");
 
   printf("\n\nIngrese la masa de la persona (kg):");
-  scanf("%d",&masa);
+  scanf("%lf",&masa);
 
   printf("\n\nIngrese la constante 'k' del resorte (N/m):");
   scanf("%d",&k_resorte);

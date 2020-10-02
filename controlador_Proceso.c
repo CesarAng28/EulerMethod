@@ -6,7 +6,7 @@
 
 #define ARCHIVO "BONGEE.CSV"
 
-int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras)
+int controlador_Proceso(double masa, int k_constante,double tiempo, double muestras)
 {
   int muestras_entero,index, chocado=0, muestra_choque, repetir;
   double delta_t, posicion_en_index, inicio = 10;
@@ -32,9 +32,9 @@ int controlador_Proceso(int masa, int k_constante,double tiempo, double muestras
 
   for(index = 0;index < muestras_entero;index++)
   {
-    posicion_en_index = modelo_Euler_Method(delta_t,index,gramos,k_constante);
+    posicion_en_index = modelo_Euler_Method(delta_t,index,masa,k_constante);
 
-    printf("\n\nPosicion en muestra %d = %.3lf",index,posicion_en_index);
+    //printf("\n\nPosicion en muestra %d = %.3lf",index,posicion_en_index);
 
     matriz_datos[index][INDEX] = index;
     matriz_datos[index][POSICION] = posicion_en_index;
