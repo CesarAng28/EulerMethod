@@ -41,7 +41,7 @@ int main(void)
   {
     fclose(file);
   }
-  char *nombre="grafica";
+  char *nombre="graphic";
   gnu_socket=popen("gnuplot -persist","w");
   fprintf(gnu_socket,"plot \"%s.dat\" using 1:2 with lines\n",nombre);/*Command for calling gnuplot internally*/
   pclose(gnu_socket);
